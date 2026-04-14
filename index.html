@@ -904,6 +904,104 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── Reveal variantes ── */
+    .reveal-left  { opacity: 0; transform: translateX(-36px); transition: opacity 0.72s ease, transform 0.72s ease; }
+    .reveal-right { opacity: 0; transform: translateX(36px);  transition: opacity 0.72s ease, transform 0.72s ease; }
+    .reveal-scale { opacity: 0; transform: scale(0.93);       transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* ══════════════════════════════════════
+       EFEITOS VISUAIS
+    ══════════════════════════════════════ */
+
+    /* Hero — entrada escalonada */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-anim { opacity: 0; animation: heroFadeUp 0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-anim-1 { animation-delay: 0.05s; }
+    .hero-anim-2 { animation-delay: 0.22s; }
+    .hero-anim-3 { animation-delay: 0.38s; }
+    .hero-anim-4 { animation-delay: 0.54s; }
+    .hero-anim-5 { animation-delay: 0.70s; }
+
+    /* Hero — dot pulsante */
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.8); opacity: 0.4; }
+    }
+    .hero-pretitle span { animation: dotPulse 2.2s ease-in-out infinite; }
+
+    /* WA float — anel pulsante */
+    @keyframes waPulseRing {
+      0%   { box-shadow: 0 4px 20px rgba(34,197,94,0.35), 0 0 0 0 rgba(34,197,94,0.50); }
+      70%  { box-shadow: 0 4px 20px rgba(34,197,94,0.35), 0 0 0 16px rgba(34,197,94,0); }
+      100% { box-shadow: 0 4px 20px rgba(34,197,94,0.35), 0 0 0 0 rgba(34,197,94,0); }
+    }
+    .wa-float { animation: waPulseRing 2.8s ease-in-out infinite; }
+    .wa-float:hover { animation: none; transform: scale(1.08); box-shadow: 0 6px 28px rgba(34,197,94,0.45); }
+
+    /* Divisor — expande ao entrar em view */
+    @keyframes divExpand {
+      from { width: 0; opacity: 0; }
+      to   { width: 44px; opacity: 1; }
+    }
+    .divider { width: 0; opacity: 0; }
+    .divider.div-on { animation: divExpand 0.55s cubic-bezier(0.22,1,0.36,1) 0.12s both; }
+
+    /* MVV — ícone flip no hover */
+    .mvv-icon i { transition: transform 0.55s ease; }
+    .mvv-card:hover .mvv-icon { background: rgba(196,28,28,0.22); }
+    .mvv-card:hover .mvv-icon i { transform: rotateY(180deg); }
+
+    /* Sobre badge — escala no hover */
+    .sobre-badge { transition: transform 0.30s ease, box-shadow 0.30s ease; }
+    .sobre-img-wrap:hover .sobre-badge {
+      transform: scale(1.05);
+      box-shadow: 0 14px 40px rgba(196,28,28,0.45);
+    }
+
+    /* Contato items — stagger */
+    .contato-items .reveal:nth-child(1) { transition-delay: 0.05s; }
+    .contato-items .reveal:nth-child(2) { transition-delay: 0.12s; }
+    .contato-items .reveal:nth-child(3) { transition-delay: 0.19s; }
+    .contato-items .reveal:nth-child(4) { transition-delay: 0.26s; }
+    .contato-items .reveal:nth-child(5) { transition-delay: 0.33s; }
+
+    /* Lightbox */
+    .lb-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 2000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    .lb-overlay.open { opacity: 1; pointer-events: all; }
+    .lb-overlay img {
+      max-width: 92vw; max-height: 88vh;
+      border-radius: 6px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      transform: scale(0.90);
+      transition: transform 0.28s ease;
+      object-fit: contain;
+    }
+    .lb-overlay.open img { transform: scale(1); }
+    .lb-close {
+      position: absolute; top: 18px; right: 22px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.24); }
+    .gal-item { cursor: zoom-in; }
+
     /* ══════════════════════════════════════
        RESPONSIVE
     ══════════════════════════════════════ */
@@ -927,6 +1025,7 @@
       .gal-item:first-child { grid-row: span 1; }
       .gal-item:first-child .gal-img { height: 280px; }
       .gal-item:not(:first-child) .gal-img { height: 280px; }
+      .galeria-grid .gal-item:last-child { grid-column: 1 / -1; }
 
       .contato-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -960,6 +1059,16 @@
 
       .mvv-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ── 640px – mobile grande ── */
+    @media (max-width: 640px) {
+      .galeria-grid { grid-template-columns: 1fr; }
+      .galeria-grid .gal-item:last-child { grid-column: auto; }
+      .gal-item:first-child .gal-img,
+      .gal-item:not(:first-child) .gal-img { height: 250px; }
+      .contato-wpp-box { padding: 28px 22px; }
+      .hero-stats { max-width: 100%; }
     }
 
     /* ── 480px – mobile ── */
@@ -1042,7 +1151,10 @@
       #hero { background-attachment: scroll; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { transition: none; opacity: 1; transform: none; }
+      .reveal, .reveal-left, .reveal-right, .reveal-scale { transition: none; opacity: 1; transform: none; }
+      .hero-anim { animation: none; opacity: 1; }
+      .hero-pretitle span, .wa-float { animation: none; }
+      .divider { width: 44px; opacity: 1; animation: none; }
     }
   </style>
 </head>
@@ -1087,14 +1199,14 @@
 <!-- ===== HERO ===== -->
 <section id="hero" aria-label="Início">
   <div class="container hero-body">
-    <div class="hero-pretitle">
+    <div class="hero-pretitle hero-anim hero-anim-1">
       <span></span>Fábrica própria — Inhumas, Goiás
     </div>
 
-    <h1>Pisos de<br><em>Borracha</em></h1>
-    <h2>Resistência e durabilidade superiores para academias, playgrounds e ambientes industriais. Fabricação vulcanizada com controle total de qualidade.</h2>
+    <h1 class="hero-anim hero-anim-2">Pisos de<br><em>Borracha</em></h1>
+    <h2 class="hero-anim hero-anim-3">Resistência e durabilidade superiores para academias, playgrounds e ambientes industriais. Fabricação vulcanizada com controle total de qualidade.</h2>
 
-    <div class="hero-btns">
+    <div class="hero-btns hero-anim hero-anim-4">
       <a href="https://wa.me/5562991520086" class="btn btn-vermelho" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp" aria-hidden="true"></i> Solicitar orçamento
       </a>
@@ -1103,17 +1215,17 @@
       </a>
     </div>
 
-    <div class="hero-stats">
+    <div class="hero-stats hero-anim hero-anim-5">
       <div class="hero-stat">
-        <strong>6+</strong>
+        <strong data-counter="6" data-suffix="+">0+</strong>
         <span>Anos de mercado</span>
       </div>
       <div class="hero-stat">
-        <strong>2</strong>
+        <strong data-counter="2">0</strong>
         <span>Anos de fábrica própria</span>
       </div>
       <div class="hero-stat">
-        <strong>100%</strong>
+        <strong data-counter="100" data-suffix="%">0%</strong>
         <span>Borracha reciclada</span>
       </div>
       <div class="hero-stat">
@@ -1129,15 +1241,15 @@
   <div class="container">
     <div class="sobre-grid">
 
-      <div class="sobre-img-wrap reveal">
+      <div class="sobre-img-wrap reveal-left">
         <img class="sobre-img" src="images/foto-1.jpg" alt="Showroom PBG com amostras de pisos de borracha coloridos">
         <div class="sobre-badge">
-          <strong>6+</strong>
+          <strong data-counter="6" data-suffix="+">0+</strong>
           <span>anos de mercado</span>
         </div>
       </div>
 
-      <div class="sobre-content reveal">
+      <div class="sobre-content reveal-right">
         <span class="sec-tag"><i class="fas fa-industry"></i> Nossa história</span>
         <h2>Fábrica própria,<br><span>qualidade garantida</span></h2>
         <p>A <strong>PBG Pisos de Borracha Goiás</strong> surgiu durante a pandemia, impulsionada pelo crescimento do setor fitness. Após anos de expertise no mercado, demos o passo decisivo: inauguramos nossa própria fábrica de pisos vulcanizados.</p>
@@ -1215,7 +1327,7 @@
     </div>
 
     <!-- Espessuras -->
-    <div class="espessuras-box reveal">
+    <div class="espessuras-box reveal-scale">
       <div class="espessuras-title">
         <i class="fas fa-ruler-vertical"></i> Espessuras disponíveis — carga suportada por m²
       </div>
@@ -1364,35 +1476,35 @@
         <p>Solicite seu orçamento, tire dúvidas sobre os produtos ou fale sobre seu projeto. Atendemos de segunda a sexta, das 6h às 17h.</p>
 
         <div class="contato-items">
-          <div class="contato-item">
+          <div class="contato-item reveal">
             <div class="ci-icon"><i class="fab fa-whatsapp"></i></div>
             <div>
               <div class="ci-label">WhatsApp</div>
               <div class="ci-value"><a href="https://wa.me/5562991520086">(62) 99152-0086</a></div>
             </div>
           </div>
-          <div class="contato-item">
+          <div class="contato-item reveal">
             <div class="ci-icon"><i class="fas fa-envelope"></i></div>
             <div>
               <div class="ci-label">E-mail</div>
               <div class="ci-value"><a href="mailto:pbgpisos@gmail.com">pbgpisos@gmail.com</a></div>
             </div>
           </div>
-          <div class="contato-item">
+          <div class="contato-item reveal">
             <div class="ci-icon"><i class="fab fa-instagram"></i></div>
             <div>
               <div class="ci-label">Instagram</div>
               <div class="ci-value"><a href="https://www.instagram.com/pisosdeborrachago" target="_blank" rel="noopener noreferrer">@pisosdeborrachago</a></div>
             </div>
           </div>
-          <div class="contato-item">
+          <div class="contato-item reveal">
             <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
             <div>
               <div class="ci-label">Endereço</div>
               <div class="ci-value">Av. Bernardo Sayão, SN — Q.01 L.13<br>Inhumas/GO · CEP 75407-422</div>
             </div>
           </div>
-          <div class="contato-item">
+          <div class="contato-item reveal">
             <div class="ci-icon"><i class="fas fa-clock"></i></div>
             <div>
               <div class="ci-label">Horário</div>
@@ -1452,12 +1564,18 @@
 
     </div>
     <div class="footer-bar">
-      © 2025 PBG Pisos de Borracha Goiás · CNPJ 59.701.309/0001-51 · Todos os direitos reservados.
+      © 2026 PBG Pisos de Borracha Goiás · CNPJ 59.701.309/0001-51 · Todos os direitos reservados.
     </div>
     <div id="montesite-footer-badge"></div>
     <script src="https://vaabpicspdbolvutnscp.supabase.co/functions/v1/get-footer-iframe"></script>
   </div>
 </footer>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+  <button class="lb-close" id="lbClose" aria-label="Fechar"><i class="fas fa-times"></i></button>
+  <img id="lbImg" src="" alt="">
+</div>
 
 <!-- WhatsApp float -->
 <a href="https://wa.me/5562991520086" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Falar pelo WhatsApp">
@@ -1516,6 +1634,66 @@
     });
   }, { threshold: 0.40 });
   sections.forEach(s => secObs.observe(s));
+
+  /* ── Reveal variantes (left/right/scale) ── */
+  const varObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); varObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale').forEach(el => varObs.observe(el));
+
+  /* ── Stagger extra — galeria e contato ── */
+  document.querySelectorAll('.galeria-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.12) + 's';
+  });
+
+  /* ── Divisor expand on scroll ── */
+  const divObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('div-on'); divObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.divider').forEach(d => divObs.observe(d));
+
+  /* ── Counter animation ── */
+  function runCount(el) {
+    const target = parseInt(el.dataset.counter, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1600;
+    const t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  const cntObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { runCount(e.target); cntObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('[data-counter]').forEach(el => cntObs.observe(el));
+
+  /* ── Lightbox ── */
+  const lb  = document.getElementById('lb');
+  const lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.gal-item .gal-img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 </script>
 </body>
 </html>
